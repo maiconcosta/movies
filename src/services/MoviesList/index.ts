@@ -15,7 +15,7 @@ export const useMoviesList = (
           params: {
             query,
             language: 'pt-BR',
-            api_key: import.meta.env.VITE_MOVIES_API_KEY,
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
             page: 1,
           },
         })
