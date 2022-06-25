@@ -1,0 +1,76 @@
+@import '@/styles/variables';
+.container {
+  background: $bgCard;
+  margin: 3rem 0;
+
+  .title {
+    background: #e6e6e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.8rem 3rem;
+
+    h2 {
+      font-family: 'Abel', sans-serif;
+      color: $primary;
+      font-weight: 400;
+      font-size: 2.2rem;
+    }
+
+    h4 {
+      color: #777;
+      font-family: 'Lato', sans-serif;
+      font-weight: 200;
+      font-size: 1rem;
+    }
+  }
+
+  .detail {
+    display: flex;
+
+    .info {
+      width: 100%;
+      margin: 0.8rem 3rem;
+
+      h3 {
+        padding: 0.3rem 0;
+        color: $primary;
+        font-family: 'Abel', sans-serif;
+        font-weight: 200;
+        font-size: 1.4rem;
+        border-bottom: 1px solid $secondary;
+      }
+
+      p {
+        margin: 1.25rem 0 2rem;
+        font-family: 'Lato', sans-serif;
+        color: #444;
+      }
+
+      .movieInfos {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        row-gap: 0.5rem;
+        column-gap: 0.5rem;
+        margin: 2rem 0;
+        text-align: center;
+
+        h4 {
+          color: $primary;
+          font-family: 'Abel', sans-serif;
+          font-weight: 400;
+          font-size: 1.2rem;
+          line-height: 0.3rem;
+        }
+
+        p {
+          font-size: 0.8rem;
+          line-height: 0.3rem;
+        }
+      }
+    }
+  }
+}
+iframe {
+  margin-bottom: 4rem;
+}
