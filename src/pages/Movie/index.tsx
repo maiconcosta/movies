@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, intervalToDuration } from 'date-fns';
 
 import { useParams } from 'react-router-dom';
 import { useMovie } from '../../services/Movie';
@@ -8,6 +8,10 @@ import { Label, Loading, Score } from '../../components';
 
 import noPhoto from '../../assets/images/no-photo.png';
 import './styles.scss';
+
+type MovieStatus = {
+  [key: string]: string;
+};
 
 const Movie = () => {
   const params = useParams();
@@ -23,10 +27,20 @@ const Movie = () => {
     ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}`
     : noPhoto;
 
+  const duration =
+    movie?.runtime &&
+    intervalToDuration({ start: 0, end: movie?.runtime * 1000 * 60 });
+
   const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
+
+  const movieStatus: MovieStatus = {
+    Released: 'Lançado',
+    'In Production': 'Em produção',
+    'Post Production': 'Pós-produção',
+  };
 
   return (
     <>
@@ -56,7 +70,7 @@ const Movie = () => {
               <div className="movieInfos">
                 <div>
                   <h4>Situação</h4>
-                  <p>{movie?.status}</p>
+                  <p>{movie?.status ? movieStatus[movie?.status] : '--'}</p>
                 </div>
                 <div>
                   <h4>Idioma</h4>
@@ -64,23 +78,34 @@ const Movie = () => {
                 </div>
                 <div>
                   <h4>Duração</h4>
-                  <p>{movie?.runtime}</p>
+                  <p>
+                    {duration
+                      ? `${duration.hours}h${duration.minutes}min`
+                      : '--'}
+                  </p>
                 </div>
                 <div>
                   <h4>Orçamento</h4>
-                  <p>{currencyFormatter.format(movie?.budget || 0)}</p>
+                  <p>
+                    {movie?.budget
+                      ? currencyFormatter.format(movie?.budget)
+                      : '--'}
+                  </p>
                 </div>
                 <div>
                   <h4>Receita</h4>
-                  <p>{currencyFormatter.format(movie?.revenue || 0)}</p>
+                  <p>
+                    {movie?.revenue
+                      ? currencyFormatter.format(movie?.revenue)
+                      : '--'}
+                  </p>
                 </div>
                 <div>
                   <h4>Lucro</h4>
                   <p>
-                    {movie?.revenue &&
-                      currencyFormatter.format(
-                        movie?.revenue - movie?.budget || 0,
-                      )}
+                    {movie?.budget && movie?.revenue
+                      ? currencyFormatter.format(movie?.revenue - movie?.budget)
+                      : '--'}
                   </p>
                 </div>
               </div>
