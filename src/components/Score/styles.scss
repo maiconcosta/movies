@@ -1,0 +1,40 @@
+@import '@/styles/variables';
+
+.score {
+  width: 4.3rem;
+  height: 4.3rem;
+  border-radius: 100%;
+  background: $primary;
+  border: 0.25rem solid $secondary;
+  outline: 0.2rem solid $primary;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: $secondary;
+    font-size: 1.5rem;
+    font-family: 'Abel', sans-serif;
+  }
+}
+
+.bigScore {
+  width: 6.3rem;
+  height: 6.3rem;
+  border-radius: 100%;
+  background: $primary;
+  border: 0.4rem solid $secondary;
+  outline: 0.35rem solid $primary;
+  margin-top: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: $secondary;
+    font-size: 2rem;
+    font-family: 'Abel', sans-serif;
+  }
+}

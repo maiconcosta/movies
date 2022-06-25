@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useMovie } from '../../services/Movie';
 import { useTrailer } from '../../services/Trailer';
 
-import { Label, Loading } from '../../components';
+import { Label, Loading, Score } from '../../components';
 
 import noPhoto from '../../assets/images/no-photo.png';
 import './styles.scss';
@@ -45,7 +45,7 @@ const Movie = () => {
           <div className="detail">
             <div className="info">
               <h3>Sinopse</h3>
-              <p>
+              <p className="synopsis">
                 {movie?.overview
                   ? movie?.overview
                   : 'Nenhuma sinopse disponível para esse filme.'}
@@ -85,9 +85,18 @@ const Movie = () => {
                 </div>
               </div>
 
-              {movie?.genres.map((genre) => (
-                <Label>{genre.name}</Label>
-              ))}
+              <div className="tagsScore">
+                <div>
+                  {movie?.genres.map((genre) => (
+                    <Label>{genre.name}</Label>
+                  ))}
+                </div>
+
+                <Score className="bigScore">
+                  {movie?.vote_average && (movie?.vote_average * 10).toFixed(0)}
+                  %
+                </Score>
+              </div>
             </div>
 
             <img src={imagePath} alt={movie?.title} />
@@ -95,12 +104,12 @@ const Movie = () => {
         </div>
       )}
       {trailer && trailer?.results?.length > 0 && (
-        <iframe
-          id="ytplayer"
-          width="100%"
-          height="600px"
-          src={`http://www.youtube.com/embed/${trailer?.results[0].key}?autoplay=0`}
-        />
+        <div className="video-container">
+          <iframe
+            id="ytplayer"
+            src={`http://www.youtube.com/embed/${trailer?.results[0].key}?autoplay=0`}
+          />
+        </div>
       )}
     </>
   );

@@ -14,22 +14,22 @@
       font-family: 'Abel', sans-serif;
       color: $primary;
       font-weight: 400;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
     }
 
     h4 {
       color: #777;
       font-family: 'Lato', sans-serif;
       font-weight: 200;
-      font-size: 1rem;
+      font-size: 0.8rem;
     }
   }
 
   .detail {
     display: flex;
+    flex-direction: column-reverse;
 
     .info {
-      width: 100%;
       margin: 0.8rem 3rem;
 
       h3 {
@@ -41,7 +41,7 @@
         border-bottom: 1px solid $secondary;
       }
 
-      p {
+      .synopsis {
         margin: 1.25rem 0 2rem;
         font-family: 'Lato', sans-serif;
         color: #444;
@@ -49,10 +49,10 @@
 
       .movieInfos {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         row-gap: 0.5rem;
         column-gap: 0.5rem;
-        margin: 2rem 0;
+        margin: 1.5rem 0 3.5rem;
         text-align: center;
 
         h4 {
@@ -60,17 +60,84 @@
           font-family: 'Abel', sans-serif;
           font-weight: 400;
           font-size: 1.2rem;
-          line-height: 0.3rem;
         }
 
         p {
           font-size: 0.8rem;
-          line-height: 0.3rem;
+          font-family: 'Lato', sans-serif;
+          color: #444;
         }
       }
     }
+
+    .tagsScore {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    img {
+      max-width: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
   }
 }
-iframe {
+
+.video-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
   margin-bottom: 4rem;
+
+  &::after {
+    padding-top: 56.25%;
+    display: block;
+    content: '';
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    .title {
+      h2 {
+        font-size: 2.2rem;
+      }
+
+      h4 {
+        font-size: 1rem;
+      }
+    }
+
+    .detail {
+      flex-direction: row;
+    }
+    img {
+      height: 330px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    .detail {
+      flex-direction: row;
+
+      .tagsScore {
+        flex-direction: row;
+      }
+    }
+
+    img {
+      height: auto;
+    }
+  }
 }

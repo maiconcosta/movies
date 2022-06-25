@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { Movie } from '../../types/Movie';
-import { Label } from '../../components';
+import { Label, Score } from '../../components';
 import { useGenre } from '../../services/Genre';
 
 import noPhoto from '../../assets/images/no-photo.png';
@@ -31,8 +31,8 @@ export const Card = ({ movie, navigateToDetails }: CardProps) => {
         </div>
 
         <div className="cardContent">
-          <div className="movieVote">
-            <p>{movie.vote_average * 10}%</p>
+          <div className="movieScore">
+            <Score>{movie.vote_average * 10}%</Score>
           </div>
 
           <h3>
@@ -41,7 +41,7 @@ export const Card = ({ movie, navigateToDetails }: CardProps) => {
               : 'Data de lançamento desconhecida'}
           </h3>
 
-          <p>
+          <p className="synopsis">
             {movie.overview
               ? movie.overview
               : 'Nenhuma sinopse disponível para esse filme.'}
