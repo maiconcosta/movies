@@ -132,7 +132,9 @@ const Movie = () => {
         <div className="video-container">
           <iframe
             id="ytplayer"
-            src={`http://www.youtube.com/embed/${trailer?.results[0].key}?autoplay=0`}
+            src={`http://www.youtube.com/embed/${
+              trailer?.results[trailer?.results.length - 1].key
+            }?autoplay=0`}
           />
         </div>
       )}
