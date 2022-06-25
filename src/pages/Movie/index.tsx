@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useMovie } from '../../services/Movie';
 import { useTrailer } from '../../services/Trailer';
 
-import { Label } from '../../components';
+import { Label, Loading } from '../../components';
 
 import noPhoto from '../../assets/images/no-photo.png';
 import './styles.scss';
@@ -12,7 +12,7 @@ import './styles.scss';
 const Movie = () => {
   const params = useParams();
 
-  const { data: movie } = useMovie(params?.movieId, {
+  const { data: movie, isFetching } = useMovie(params?.movieId, {
     refetchOnWindowFocus: false,
   });
   const { data: trailer } = useTrailer(params?.movieId, {
@@ -30,67 +30,70 @@ const Movie = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="title">
-          <h2>{movie?.title}</h2>
-          <h4>
-            {movie?.release_date
-              ? format(new Date(movie.release_date), 'dd/MM/yyyy')
-              : 'Data de lançamento desconhecida'}
-          </h4>
-        </div>
-        <div className="detail">
-          <div className="info">
-            <h3>Sinopse</h3>
-            <p>
-              {movie?.overview
-                ? movie?.overview
-                : 'Nenhuma sinopse disponível para esse filme.'}
-            </p>
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <div className="container">
+          <div className="title">
+            <h2>{movie?.title}</h2>
+            <h4>
+              {movie?.release_date
+                ? format(new Date(movie.release_date), 'dd/MM/yyyy')
+                : 'Data de lançamento desconhecida'}
+            </h4>
+          </div>
+          <div className="detail">
+            <div className="info">
+              <h3>Sinopse</h3>
+              <p>
+                {movie?.overview
+                  ? movie?.overview
+                  : 'Nenhuma sinopse disponível para esse filme.'}
+              </p>
 
-            <h3>Informações</h3>
+              <h3>Informações</h3>
 
-            <div className="movieInfos">
-              <div>
-                <h4>Situação</h4>
-                <p>{movie?.status}</p>
+              <div className="movieInfos">
+                <div>
+                  <h4>Situação</h4>
+                  <p>{movie?.status}</p>
+                </div>
+                <div>
+                  <h4>Idioma</h4>
+                  <p>{movie?.original_language}</p>
+                </div>
+                <div>
+                  <h4>Duração</h4>
+                  <p>{movie?.runtime}</p>
+                </div>
+                <div>
+                  <h4>Orçamento</h4>
+                  <p>{currencyFormatter.format(movie?.budget || 0)}</p>
+                </div>
+                <div>
+                  <h4>Receita</h4>
+                  <p>{currencyFormatter.format(movie?.revenue || 0)}</p>
+                </div>
+                <div>
+                  <h4>Lucro</h4>
+                  <p>
+                    {movie?.revenue &&
+                      currencyFormatter.format(
+                        movie?.revenue - movie?.budget || 0,
+                      )}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4>Idioma</h4>
-                <p>{movie?.original_language}</p>
-              </div>
-              <div>
-                <h4>Duração</h4>
-                <p>{movie?.runtime}</p>
-              </div>
-              <div>
-                <h4>Orçamento</h4>
-                <p>{currencyFormatter.format(movie?.budget || 0)}</p>
-              </div>
-              <div>
-                <h4>Receita</h4>
-                <p>{currencyFormatter.format(movie?.revenue || 0)}</p>
-              </div>
-              <div>
-                <h4>Lucro</h4>
-                <p>
-                  {movie?.revenue &&
-                    currencyFormatter.format(
-                      movie?.revenue - movie?.budget || 0,
-                    )}
-                </p>
-              </div>
+
+              {movie?.genres.map((genre) => (
+                <Label>{genre.name}</Label>
+              ))}
             </div>
 
-            {movie?.genres.map((genre) => (
-              <Label>{genre.name}</Label>
-            ))}
+            <img src={imagePath} alt={movie?.title} />
           </div>
-
-          <img src={imagePath} alt={movie?.title} />
         </div>
-      </div>
-
+      )}
       {trailer && trailer?.results?.length > 0 && (
         <iframe
           id="ytplayer"
