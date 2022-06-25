@@ -1,3 +1,5 @@
+import { Genre } from './Genre';
+
 export type Movie = {
   adult: boolean;
   backdrop_path: string;
@@ -13,4 +15,9 @@ export type Movie = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  status: string;
+  budget: number;
+  genres: Genre[];
+  revenue: number;
+  runtime: number;
 };
