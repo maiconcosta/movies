@@ -1,11 +1,18 @@
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from 'react-router-dom';
+import GlobalProvider from './contexts/GlobalContext';
+import RoutesComponent from './routes';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <h1>Hello</h1>
+      <GlobalProvider>
+        <BrowserRouter>
+          <RoutesComponent />
+        </BrowserRouter>
+      </GlobalProvider>
     </QueryClientProvider>
   );
 }
