@@ -1,5 +1,40 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  max-width: 100%;
+  margin: 2.5rem auto;
+}
+
+@media (min-width: 576px) {
+  main {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  main {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  main {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  main {
+    max-width: 1150px;
+  }
+}
+
+@media (min-width: 1400px) {
+  main {
+    max-width: 1350px;
+  }
 }
