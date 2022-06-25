@@ -5,10 +5,11 @@ import { MovieList } from './types';
 
 export const useMoviesList = (
   query: string,
+  page: number = 1,
   options?: UseQueryOptions<MovieList>,
 ) => {
   return useQuery(
-    createUseMoviesListKey(query),
+    createUseMoviesListKey(query, page),
     () =>
       api
         .get<MovieList>('search/movie', {
@@ -16,7 +17,7 @@ export const useMoviesList = (
             query,
             language: 'pt-BR',
             api_key: import.meta.env.VITE_TMDB_API_KEY,
-            page: 1,
+            page,
           },
         })
         .then((response) => response.data),
